@@ -1,7 +1,5 @@
 import requests
 import json
-import pickle
-import pandas as pd
 import numpy as np
 from datetime import datetime
 from decouple import config
@@ -10,8 +8,6 @@ cookie = {"steamLoginSecure": config("STEAM_LOGIN_SECURE")}
 game_id = config("GAME_ID_1")
 
 
-# with open("730_custom_item_names.docx", "rb") as file:
-#     all_items_names = pickle.load(file)
 all_items_names = [
     "UMP-45 | Crime Scene (Factory New)",
     "FAMAS | Prime Conspiracy (Factory New)",
@@ -32,6 +28,7 @@ for item in all_items_names:
         + item_http,
         cookies=cookie,
     )
+    print(item_http)
     # print(f'{str(current_run)} out of {str(len(all_items_names))}, code:{str(item.status_code)}')
     current_run += 1
     item = item.content
@@ -53,18 +50,17 @@ for item in all_items_names:
             item_quantity = list(map(int, item_quantity))
 
             for current_day in range(len(item_date) - 1, 1, -1):
-                if item_date[current_day] == item_date[current_day - 1]:
-                    item_prices[current_day] = np.mean(
-                        [item_prices[current_day], item_prices[current_day - 1]]
-                    )
+                index = 1
+                prices = [item_prices[current_day]]
+                while item_date[current_day] == item_date[current_day - index]:
+                    prices.append(item_prices[current_day - index])
                     item_quantity[current_day] = np.sum(
-                        [item_quantity[current_day], item_quantity[current_day - 1]]
+                        [item_quantity[current_day], item_quantity[current_day - index]]
                     )
-                    del item_date[current_day]
-                    del item_prices[current_day]
-                    del item_quantity[current_day]
-
-            norm_time = list(range(0, len(item_prices)))
+                    index += 1
+                else:
+                    item_prices[current_day] = np.mean(prices)
+                    break
 
             avg_price_today = round(item_prices[-1], 3)
             days_on_market = (datetime.today() - item_date[0]).days
@@ -75,7 +71,7 @@ for item in all_items_names:
             lowest_index = item_prices.index(lowest_price)
             diff_between_lowest_and_highest = round(highest_price - lowest_price, 3)
             avg_price = round(np.mean(item_prices), 3)
-            avg_quantity = round(np.mean(item_quantity), 2)
+            print(item_quantity[-30:])
             quantity_today = item_quantity[-1]
 
             price_change_past_5_days = 0
@@ -109,8 +105,7 @@ for item in all_items_names:
         print(f"Lowest price ever: {lowest_price} zł")
         print(f"Highest difference in price: {diff_between_lowest_and_highest} zł")
         print(f"Average price all time: {avg_price} zł")
-        # print(f'Average quantity sold daily: {avg_quantity}')
-        # print(f'Quantity sold today: {quantity_today}')
+        print(f'Quantity sold today: {quantity_today}')
         print(f"Price change in the past 5 days: {price_change_past_5_days} zł")
         print(
             f"Percentage price change in the past 5 days: {percentage_price_change_past_5_days}%"
