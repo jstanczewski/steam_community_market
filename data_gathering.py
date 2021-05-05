@@ -10,11 +10,11 @@ cookie = {'steamLoginSecure': config('STEAM_LOGIN_SECURE')}
 game_id = config('GAME_ID_1')
 
 
-with open(config('GAME_ID_1') + 'item_names.txt', 'rb') as file:
+with open(config('GAME_ID_1') + '_item_names.txt', 'rb') as file:
     all_items_names = pickle.load(file)
     all_items_names = all_items_names
 
-all_items_pd = pd.DataFrame(data=None, index=None, columns=['item_name', 'current_price', 'initial', 'time_on_market', 'price_increase', 'price_avg', 'max_price', 'max_idx', 'min_price', 'min_idx', 'swing'])
+all_items_pd = pd.DataFrame(data=None, index=None, columns=['item_name', 'current_price', 'initial', 'days_on_market', 'price_increase', 'price_avg', 'max_price', 'max_idx', 'min_price', 'min_idx', 'swing'])
 current_run = 1
 
 for current_item in all_items_names:
@@ -46,26 +46,26 @@ for current_item in all_items_names:
 
             norm_time = list(range(0, len(item_prices)))
 
-            current_price = item_prices[-1]
-            time_on_market = (datetime.today() - item_date[0]).days
-            price_increase = item_prices[-1] - item_prices[0]
+            current_price = round(item_prices[-1], 3)
+            days_on_market = (datetime.today() - item_date[0]).days
+            price_increase = round(item_prices[-1] - item_prices[0], 3)
             max_price = max(item_prices)
             max_idx = item_prices.index(max_price)
             min_price = min(item_prices)
             min_idx = item_prices.index(min_price)
-            swing = max_price - min_price
-            item_price_avg = np.mean(item_prices)
+            swing = round(max_price - min_price, 3)
+            item_price_avg = round(np.mean(item_prices), 3)
             if len(item_prices) > 1:
-                item_price_initial = item_prices[1] - item_prices[0]
+                item_price_initial = round(item_prices[1] - item_prices[0], 3)
             else:
-                item_price_initial = item_prices[0]
+                item_price_initial = round(item_prices[0], 3)
 
-            current_item_dict = {'item_name': current_item, 'current_price': current_price, 'initial': item_price_initial, 'time_on_market': time_on_market, 'price_increase': price_increase, 'price_avg': item_price_avg, 'max_price': max_price, 'max_idx': max_idx, 'min_price': min_price, 'min_idx': min_idx, 'swing': swing}
+            current_item_dict = {'item_name': current_item, 'current_price': current_price, 'initial': item_price_initial, 'days_on_market': days_on_market, 'price_increase': price_increase, 'price_avg': item_price_avg, 'max_price': max_price, 'max_idx': max_idx, 'min_price': min_price, 'min_idx': min_idx, 'swing': swing}
             current_item_pd = pd.DataFrame(current_item_dict, index=[0])
             all_items_pd = all_items_pd.append(current_item_pd, ignore_index=True)
 
     else:
         continue
+
 print('All the item data collected')
-print(all_items_pd.to_string())
-all_items_pd.to_pickle(game_id + '_price_data.pkl')
+all_items_pd.to_csv(game_id + '_price_data.csv')
