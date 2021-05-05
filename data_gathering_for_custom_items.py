@@ -28,7 +28,6 @@ for item in all_items_names:
         + item_http,
         cookies=cookie,
     )
-    print(item_http)
     # print(f'{str(current_run)} out of {str(len(all_items_names))}, code:{str(item.status_code)}')
     current_run += 1
     item = item.content
@@ -71,7 +70,6 @@ for item in all_items_names:
             lowest_index = item_prices.index(lowest_price)
             diff_between_lowest_and_highest = round(highest_price - lowest_price, 3)
             avg_price = round(np.mean(item_prices), 3)
-            print(item_quantity[-30:])
             quantity_today = item_quantity[-1]
 
             price_change_past_5_days = 0
@@ -105,7 +103,7 @@ for item in all_items_names:
         print(f"Lowest price ever: {lowest_price} zł")
         print(f"Highest difference in price: {diff_between_lowest_and_highest} zł")
         print(f"Average price all time: {avg_price} zł")
-        print(f'Quantity sold today: {quantity_today}')
+        print(f"Quantity sold today: {quantity_today}")
         print(f"Price change in the past 5 days: {price_change_past_5_days} zł")
         print(
             f"Percentage price change in the past 5 days: {percentage_price_change_past_5_days}%"
