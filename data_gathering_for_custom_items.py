@@ -1,37 +1,23 @@
-import requests
-import json
 import numpy as np
 from datetime import datetime
 from decouple import config
+import SteamMarket
 
 cookie = {"steamLoginSecure": config("STEAM_LOGIN_SECURE")}
 game_id = config("GAME_ID_1")
-
+SteamMarket.set_cookies(config("STEAM_LOGIN_SECURE"))
+SteamMarket.iniate_cookies()
 
 all_items_names = [
-    "UMP-45 | Crime Scene (Factory New)",
-    "FAMAS | Prime Conspiracy (Factory New)",
-    "FAMAS | Neural Net (Minimal Wear)",
-    "Tec-9 | Bamboo Forest (Factory New)",
+
 ]
 current_run = 1
 
 for item in all_items_names:
     print(f"{str(current_run)} out of {str(len(all_items_names))}")
     print(f"DATA FOR: {item.upper()}")
-    item_http = item.replace(" ", "%20")
-    item_http = item_http.replace("&", "%26")
-    item = requests.get(
-        "https://steamcommunity.com/market/pricehistory/?appid="
-        + game_id
-        + "&market_hash_name="
-        + item_http,
-        cookies=cookie,
-    )
-    # print(f'{str(current_run)} out of {str(len(all_items_names))}, code:{str(item.status_code)}')
     current_run += 1
-    item = item.content
-    item = json.loads(item)
+    item = SteamMarket.get_price_history(game_id, item)
     if item:
         item_price_data = item["prices"]
         if not item_price_data:
@@ -50,9 +36,12 @@ for item in all_items_names:
 
             for current_day in range(len(item_date) - 1, 1, -1):
                 index = 1
-                prices = [item_prices[current_day]]
+                prices = []
+                for i in range(item_quantity[current_day]):
+                    prices.append(item_prices[current_day])
                 while item_date[current_day] == item_date[current_day - index]:
-                    prices.append(item_prices[current_day - index])
+                    for i in range(item_quantity[current_day - index]):
+                        prices.append(item_prices[current_day - index])
                     item_quantity[current_day] = np.sum(
                         [item_quantity[current_day], item_quantity[current_day - index]]
                     )
