@@ -8,9 +8,7 @@ game_id = config("GAME_ID_1")
 SteamMarket.set_cookies(config("STEAM_LOGIN_SECURE"))
 SteamMarket.iniate_cookies()
 
-all_items_names = [
-
-]
+all_items_names = []
 current_run = 1
 
 for item in all_items_names:
