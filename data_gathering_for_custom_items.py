@@ -113,10 +113,11 @@ def item_quantity(item):
     print("<--- --->")
 
 
-current_run = 1
-for i in all_items_names:
-    print(f"{str(current_run)} out of {str(len(all_items_names))}")
-    item_prices(i)
-    item_quantity(i)
-    current_run += 1
-    sleep(5)
+if __name__ == '__main__':
+    current_run = 1
+    for i in all_items_names:
+        print(f"{str(current_run)} out of {str(len(all_items_names))}")
+        item_prices(i)
+        item_quantity(i)
+        current_run += 1
+        sleep(1)
