@@ -54,14 +54,14 @@ def item_prices(item):
             quantity.append(day[2])
         for day in range(len(item_price_data) - 1, 1, -1):
             index = 1
-            if prices[day] in item_prices[f'{date[day]}']:
+            if prices[day] in item_prices[f"{date[day]}"]:
                 continue
             else:
                 for i in range(int(quantity[day])):
-                    item_prices[f'{date[day]}'].append(prices[day])
+                    item_prices[f"{date[day]}"].append(prices[day])
             if date[day] == date[day - index]:
                 for i in range(int(quantity[day - index])):
-                    item_prices[f'{date[day]}'].append(prices[day - index])
+                    item_prices[f"{date[day]}"].append(prices[day - index])
                 index += 1
             else:
                 continue
@@ -72,9 +72,9 @@ def item_prices(item):
     avg_price_30_days_ago = round(np.mean(item_prices[list(item_prices.keys())[30]]), 3)
 
     print(f"Average price today: {avg_price_today} zł")
-    print(f'Average price 5 days ago: {avg_price_5_days_ago} zł')
-    print(f'Average price 10 days ago: {avg_price_10_days_ago} zł')
-    print(f'Average price 30 days ago: {avg_price_30_days_ago} zł')
+    print(f"Average price 5 days ago: {avg_price_5_days_ago} zł")
+    print(f"Average price 10 days ago: {avg_price_10_days_ago} zł")
+    print(f"Average price 30 days ago: {avg_price_30_days_ago} zł")
 
 
 def item_quantity(item):
@@ -88,11 +88,19 @@ def item_quantity(item):
             date.append(datetime.strptime(day[0][0:11], "%b %d %Y"))
             quantity.append(day[2])
         for day in range(len(item_price_data) - 1, 1, -1):
-            item_quantities[f'{date[day]}'].append(quantity[day])
-    item_quantities[list(item_quantities.keys())[0]] = list(map(int, item_quantities[list(item_quantities.keys())[0]]))
-    item_quantities[list(item_quantities.keys())[5]] = list(map(int, item_quantities[list(item_quantities.keys())[5]]))
-    item_quantities[list(item_quantities.keys())[10]] = list(map(int, item_quantities[list(item_quantities.keys())[10]]))
-    item_quantities[list(item_quantities.keys())[30]] = list(map(int, item_quantities[list(item_quantities.keys())[30]]))
+            item_quantities[f"{date[day]}"].append(quantity[day])
+    item_quantities[list(item_quantities.keys())[0]] = list(
+        map(int, item_quantities[list(item_quantities.keys())[0]])
+    )
+    item_quantities[list(item_quantities.keys())[5]] = list(
+        map(int, item_quantities[list(item_quantities.keys())[5]])
+    )
+    item_quantities[list(item_quantities.keys())[10]] = list(
+        map(int, item_quantities[list(item_quantities.keys())[10]])
+    )
+    item_quantities[list(item_quantities.keys())[30]] = list(
+        map(int, item_quantities[list(item_quantities.keys())[30]])
+    )
     quantity_today = np.sum(item_quantities[list(item_quantities.keys())[0]])
     quantity_5_days_ago = np.sum(item_quantities[list(item_quantities.keys())[5]])
     quantity_10_days_ago = np.sum(item_quantities[list(item_quantities.keys())[10]])
