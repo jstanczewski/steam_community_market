@@ -70,11 +70,17 @@ def item_prices(item):
     avg_price_5_days_ago = round(np.mean(item_prices[list(item_prices.keys())[5]]), 3)
     avg_price_10_days_ago = round(np.mean(item_prices[list(item_prices.keys())[10]]), 3)
     avg_price_30_days_ago = round(np.mean(item_prices[list(item_prices.keys())[30]]), 3)
+    percentage_price_change_5_days = round(avg_price_today / avg_price_5_days_ago, 2)
+    percentage_price_change_10_days = round(avg_price_today / avg_price_10_days_ago, 2)
+    percentage_price_change_30_days = round(avg_price_today / avg_price_30_days_ago, 2)
 
     print(f"Average price today: {avg_price_today} zł")
     print(f"Average price 5 days ago: {avg_price_5_days_ago} zł")
+    print(f'Percentage price change compared to 5 days ago: {percentage_price_change_5_days}%')
     print(f"Average price 10 days ago: {avg_price_10_days_ago} zł")
+    print(f'Percentage price change compared to 10 days ago: {percentage_price_change_10_days}%')
     print(f"Average price 30 days ago: {avg_price_30_days_ago} zł")
+    print(f'Percentage price change compared to 30 days ago: {percentage_price_change_30_days}%')
 
 
 def item_quantity(item):
