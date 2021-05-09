@@ -94,7 +94,7 @@ def item_prices(item):
     print(f"Percentage price change: {percentage_price_change_10_days}%")
     print(f"Average price 30 days ago: {avg_price_30_days_ago} zł")
     print(f"Percentage price change: {percentage_price_change_30_days}%")
-    return f"Item name: {item_name}. \n\nAverage price today: {avg_price_today} zł \n\nAverage price yesterday: {avg_price_yesterday} zł \nPercentage price change: {percentage_price_change_yesterday}% \n\nAverage price 5 days ago: {avg_price_5_days_ago} zł \nPercentage price change: {percentage_price_change_5_days}% \n\nAverage price 10 days ago: {avg_price_10_days_ago} zł \nPercentage price change: {percentage_price_change_10_days}% \n\nAverage price 30 days ago: {avg_price_30_days_ago} zł \nPercentage price change: {percentage_price_change_30_days}% \n"
+    return f"{item_name.upper()} \n\nAverage price today: {avg_price_today} zł \n\nAverage price yesterday: {avg_price_yesterday} zł \nPercentage price change: {percentage_price_change_yesterday}% \n\nAverage price 5 days ago: {avg_price_5_days_ago} zł \nPercentage price change: {percentage_price_change_5_days}% \n\nAverage price 10 days ago: {avg_price_10_days_ago} zł \nPercentage price change: {percentage_price_change_10_days}% \n\nAverage price 30 days ago: {avg_price_30_days_ago} zł \nPercentage price change: {percentage_price_change_30_days}% \n"
 
 
 def item_quantity(item):

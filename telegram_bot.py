@@ -33,9 +33,11 @@ item_names = [
 
 bot_api_key = config("BOT_API_KEY")
 chat_id = config("CHAT_ID")
+current_run = 1
 while True:
     for item in item_names:
-        text = item_prices(item) + "\n" + item_quantity(item)
+        run_info = f"{str(current_run)} out of {str(len(item_names))} items"
+        text = run_info + '\n' + item_prices(item) + "\n" + item_quantity(item)
         text = text.replace("%", "%25").replace(" ", "%20").replace("&", "%26")
         http = (
             "https://api.telegram.org/bot"
@@ -47,32 +49,6 @@ while True:
         )
 
         requests.get(http)
-
-        # text = item_quantity(item)
-        # text = text.replace("%", "%25").replace(" ", "%20").replace("&", "%26")
-        # http = (
-        #     "https://api.telegram.org/bot"
-        #     + bot_api_key
-        #     + "/sendMessage?chat_id="
-        #     + chat_id
-        #     + "&text="
-        #     + text
-        # )
-        #
-        # requests.get(http)
-
+        current_run += 1
         sleep(5)
-    sleep(60)
-
-
-# for _ in range(20):
-#     text = '.'
-#     http = (
-#             "https://api.telegram.org/bot"
-#             + bot_api_key
-#             + "/sendMessage?chat_id="
-#             + chat_id
-#             + "&text="
-#             + text
-#         )
-#     requests.get(http)
+    sleep(300)
