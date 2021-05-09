@@ -6,7 +6,7 @@ from time import sleep
 from dotenv import dotenv_values
 
 # COOKIE = {"steamLoginSecure": environ["STEAM_LOGIN_SECURE"]}
-GAME_ID = dotenv_values('.env')['GAME_ID_1']
+GAME_ID_1 = dotenv_values('.env')['GAME_ID_1']
 SteamMarket.set_cookies(dotenv_values('.env')["STEAM_LOGIN_SECURE"])
 SteamMarket.iniate_cookies()
 
