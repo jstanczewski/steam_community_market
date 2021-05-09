@@ -35,6 +35,7 @@ bot_api_key = config("BOT_API_KEY")
 chat_id = config("CHAT_ID")
 current_run = 1
 while True:
+    current_run = 1
     for item in item_names:
         run_info = f"{str(current_run)} out of {str(len(item_names))} items"
         text = run_info + "\n" + item_prices(item) + "\n" + item_quantity(item)
@@ -50,5 +51,5 @@ while True:
 
         requests.get(http)
         current_run += 1
-        sleep(5)
+        sleep(2)
     sleep(300)
