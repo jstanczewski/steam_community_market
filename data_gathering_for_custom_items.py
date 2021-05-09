@@ -24,7 +24,7 @@ all_items_names = [
     "Sticker | FaZe Clan (Foil) | Berlin 2019",
     "Lt. Commander Ricksaw | NSWC SEAL",
     "Sticker | ropz (Foil) | London 2018",
-    # "Operation Phoenix Weapon Case",
+    "Operation Phoenix Weapon Case",
     "Shattered Web Case",
     "Galil AR | Akoben (Field-Tested)",
     "SSG 08 | Bloodshot (Field-Tested)",
