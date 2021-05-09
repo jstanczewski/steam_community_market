@@ -37,7 +37,7 @@ current_run = 1
 while True:
     for item in item_names:
         run_info = f"{str(current_run)} out of {str(len(item_names))} items"
-        text = run_info + '\n' + item_prices(item) + "\n" + item_quantity(item)
+        text = run_info + "\n" + item_prices(item) + "\n" + item_quantity(item)
         text = text.replace("%", "%25").replace(" ", "%20").replace("&", "%26")
         http = (
             "https://api.telegram.org/bot"
