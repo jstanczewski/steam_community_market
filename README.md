@@ -1,4 +1,4 @@
-<h2>SteamMarket bot with Telegram bot</h2>
+<h2>SteamMarket program with Telegram bot</h2>
 This program requests data from Steam Market and calculates the average prices and quantities sold for given items for given dates.
 
 <h3>What exactly does it do</h3>
