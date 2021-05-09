@@ -1,13 +1,13 @@
 from collections import defaultdict
-from os import environ
 import numpy as np
 from datetime import datetime
 import SteamMarket
 from time import sleep
+from dotenv import dotenv_values
 
-COOKIE = {"steamLoginSecure": environ["STEAM_LOGIN_SECURE"]}
-GAME_ID = environ["GAME_ID_1"]
-SteamMarket.set_cookies(environ["STEAM_LOGIN_SECURE"])
+# COOKIE = {"steamLoginSecure": environ["STEAM_LOGIN_SECURE"]}
+GAME_ID = dotenv_values('.env')['GAME_ID_1']
+SteamMarket.set_cookies(dotenv_values('.env')["STEAM_LOGIN_SECURE"])
 SteamMarket.iniate_cookies()
 
 all_items_names = [

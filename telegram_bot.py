@@ -1,7 +1,7 @@
 from time import sleep
-from os import environ
 import requests
 from data_gathering_for_custom_items import item_prices, item_quantity
+from dotenv import dotenv_values
 
 item_names = [
     "Sticker | FaZe Clan | Berlin 2019",
@@ -31,8 +31,8 @@ item_names = [
     "M4A1-S | Moss Quartz (Factory New)",
 ]
 
-BOT_API_KEY = environ["BOT_API_KEY"]
-CHAT_ID = environ["CHAT_ID"]
+BOT_API_KEY = dotenv_values('.env')["BOT_API_KEY"]
+CHAT_ID = dotenv_values('.env')["CHAT_ID"]
 current_run = 1
 while True:
     current_run = 1
