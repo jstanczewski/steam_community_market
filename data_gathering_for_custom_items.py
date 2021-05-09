@@ -1,13 +1,13 @@
 from collections import defaultdict
+from os import environ
 import numpy as np
 from datetime import datetime
-from decouple import config
 import SteamMarket
 from time import sleep
 
-cookie = {"steamLoginSecure": config("STEAM_LOGIN_SECURE")}
-game_id = config("GAME_ID_1")
-SteamMarket.set_cookies(config("STEAM_LOGIN_SECURE"))
+COOKIE = {"steamLoginSecure": environ["STEAM_LOGIN_SECURE"]}
+GAME_ID = environ["GAME_ID_1"]
+SteamMarket.set_cookies(environ["STEAM_LOGIN_SECURE"])
 SteamMarket.iniate_cookies()
 
 all_items_names = [
@@ -43,7 +43,7 @@ def item_prices(item):
     item_prices = defaultdict(list)
     print(f"DATA FOR: {item.upper()}")
     item_name = item
-    item = SteamMarket.get_price_history(game_id, item)
+    item = SteamMarket.get_price_history(GAME_ID, item)
     if item:
         item_price_data = item["prices"]
         date = []
@@ -99,7 +99,7 @@ def item_prices(item):
 
 def item_quantity(item):
     item_quantities = defaultdict(list)
-    item = SteamMarket.get_price_history(game_id, item)
+    item = SteamMarket.get_price_history(GAME_ID, item)
     if item:
         item_price_data = item["prices"]
         date = []

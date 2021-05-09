@@ -1,5 +1,5 @@
 from time import sleep
-from decouple import config
+from os import environ
 import requests
 from data_gathering_for_custom_items import item_prices, item_quantity
 
@@ -31,8 +31,8 @@ item_names = [
     "M4A1-S | Moss Quartz (Factory New)",
 ]
 
-bot_api_key = config("BOT_API_KEY")
-chat_id = config("CHAT_ID")
+BOT_API_KEY = environ["BOT_API_KEY"]
+CHAT_ID = environ["CHAT_ID"]
 current_run = 1
 while True:
     current_run = 1
@@ -42,9 +42,9 @@ while True:
         text = text.replace("%", "%25").replace(" ", "%20").replace("&", "%26")
         http = (
             "https://api.telegram.org/bot"
-            + bot_api_key
+            + BOT_API_KEY
             + "/sendMessage?chat_id="
-            + chat_id
+            + CHAT_ID
             + "&text="
             + text
         )
