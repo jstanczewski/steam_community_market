@@ -43,7 +43,7 @@ def item_prices(item):
     item_prices = defaultdict(list)
     print(f"DATA FOR: {item.upper()}")
     item_name = item
-    item = SteamMarket.get_price_history(GAME_ID, item)
+    item = SteamMarket.get_price_history(GAME_ID_1, item)
     if item:
         item_price_data = item["prices"]
         date = []
@@ -99,7 +99,7 @@ def item_prices(item):
 
 def item_quantity(item):
     item_quantities = defaultdict(list)
-    item = SteamMarket.get_price_history(GAME_ID, item)
+    item = SteamMarket.get_price_history(GAME_ID_1, item)
     if item:
         item_price_data = item["prices"]
         date = []
